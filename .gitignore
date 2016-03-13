@@ -1,4 +1,4 @@
 
 # java
-.idea
-.iml
+*.idea
+*.iml

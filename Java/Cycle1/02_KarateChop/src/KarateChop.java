@@ -1,6 +1,7 @@
 /**
  * Created by Liz on 13/03/2016.
  */
+
 public class KarateChop {
 
     public static int chop(int value, int[] array) {
@@ -10,42 +11,49 @@ public class KarateChop {
                 return 0;
             }
         } else if(array.length > 1) {
-            if(value <= getMiddleValue(array)){
-                return chopLeftHalf(value, array);
-            } else {
-                return chopRightHalf(value, array);
-            }
+            return chopArray(value, array);
         }
-
         return -1;
     }
 
+    private static int chopArray(int value, int[] array) {
+        if(value < getMiddleValue(array)){
+            return chopLeftHalf(value, array);
+        } else {
+            return chopRightHalf(value, array);
+        }
+    }
+
     private static int chopLeftHalf(int value, int[] array) {
-        int left[] = {array[0]};
-        return chop(value, left);
+        int leftHalf[] = getSubArray(0, getMiddlePos(array), array);
+        return chop(value, leftHalf);
+    }
+
+    private static int chopRightHalf(int value, int[] array) {
+        int rightHalf[] = getSubArray(getMiddlePos(array), array.length, array);
+        int rightValue = chop(value, rightHalf);
+        if (rightValue == -1) {
+            return -1;
+        } else {
+            return getMiddlePos(array) + rightValue;
+        }
     }
 
     private static int[] getSubArray(int start, int finish, int[] array) {
-
-        int newArray[] = new int[finish-start];
-        for (int i = start; i < finish; i++) {
-            newArray[i-start] = array[i];
+        int length = finish - start;
+        int newArray[] = new int[length];
+        for (int i = 0; i < length; i++) {
+            newArray[i] = array[i+start];
         }
         return newArray;
     }
 
-    private static int chopRightHalf(int value, int[] array) {
-        int right[] = getSubArray((int) Math.ceil(array.length/2), array.length, array);
-        int rightValue = chop(value, right);
-        if (rightValue == -1) {
-            return -1;
-        } else {
-            return array.length/2 + rightValue;
-        }
+    private static int getMiddlePos(int[] array) {
+        return (int) Math.floor(array.length/2);
     }
 
     private static int getMiddleValue(int[] array) {
-        int middle = array.length/2;
-        return array[middle-1];
+        int middleValue = array[getMiddlePos(array)];
+        return middleValue;
     }
 }

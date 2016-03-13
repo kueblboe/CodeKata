@@ -40,4 +40,10 @@ public class KarateChopTest {
         assertEquals("test2", 1, KarateChop.chop(3, testArray));
         assertEquals("test3", 2, KarateChop.chop(5, testArray));
     }
+
+    @Test
+    public void testArrayWith4Items() {
+        int testArray[] = {4, 6, 8, 10};
+        assertEquals("test1", 1, KarateChop.chop(6, testArray));
+    }
 }
