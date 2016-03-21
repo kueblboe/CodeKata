@@ -1,0 +1,13 @@
+bear
+beer
+cat
+cot
+dog
+dot
+hog
+lead
+log
+rat
+read
+reed
+ruby
